@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-// let config = require('./config.js')
 
 mongoose
     .connect('mongodb://localhost/tododb', {
@@ -11,5 +10,5 @@ mongoose
         console.log('Connected to MongoDB!');
     })
     .catch((error) => {
-        console.log(error.reason);
+        console.error(error.reason);
     });
