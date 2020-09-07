@@ -1,10 +1,11 @@
 const router = require('express').Router();
 const todoItemController = require('../controllers/todoItemController');
+const { authenticateToken, isAdmin } = require('../middlewares/authMiddelware');
 
-router.post('/todos', todoItemController.create);
-router.get('/todos/:id', todoItemController.read);
-router.get('/todos', todoItemController.readAll);
-router.patch('/todos/:id', todoItemController.update);
-router.delete('/todos/:id', todoItemController.delete);
+router.post('/', authenticateToken, todoItemController.create);
+router.get('/:id', authenticateToken, todoItemController.read);
+router.get('/', authenticateToken, todoItemController.readAll);
+router.patch('/:id', authenticateToken, todoItemController.update);
+router.delete('/:id', authenticateToken, isAdmin, todoItemController.delete);
 
 module.exports = router;
