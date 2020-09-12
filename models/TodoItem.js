@@ -1,25 +1,25 @@
-const mongoose = require('mongoose');
+const datastore = require('../config/nedb').todoItems;
 
-let todoItemSchema = new mongoose.Schema({
-    title: { 
-        type: String, 
-        required: true, 
+module.exports = {
+    create: async (todoItem) => {
+        return await datastore.insert(todoItem);
     },
-    content: {
-        type: String
+    read: async (id) => {
+        return await datastore.findOne({ _id: id }); 
     },
-    done: {
-        type: Boolean,
-        default: false
+    readAll: async () => {
+        return await datastore.find({}); 
     },
-    // ownerId: {
-    //     type: String,
-    //     required: true
-    // },
-    // todoListId: {
-    //     type: String, 
-    //     required: true
-    // }
-});
-
-module.exports = mongoose.model('todoItem', todoItemSchema);
+    update: async (id, setTodo) => {
+        // Returns 1 if option is not set
+        return await datastore.update({ _id: id }, { $set: setTodo }, { returnUpdatedDocs: true }); 
+    },
+    delete: async (id) => {
+        // Returns 1 
+        return await datastore.remove({ _id: id }); 
+    },
+    deleteAll: async () => {
+        // Returns number of deleted items
+        return await datastore.remove({}, { multi: true });
+    }
+}

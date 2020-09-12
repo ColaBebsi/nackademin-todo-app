@@ -10,7 +10,6 @@ module.exports.signup = async (req, res) => {
 
     try {
         const user = await User.create({ email, password, role });
-        // const accessToken = await jwt.sign({ email, role }, process.env.JWT_SECRET);
         const accessToken = generateAccessToken(user.email, user.role);
 
         res.status(201).json({ user, accessToken });

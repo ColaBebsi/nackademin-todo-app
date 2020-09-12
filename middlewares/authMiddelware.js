@@ -8,14 +8,13 @@ function authenticateToken(req, res, next) {
 
     jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
         if (err) return res.sendStatus(403);
+        // Save user in request object
         req.user = user;
-        // console.log(user);
         next();
     });
 }
 
 const isAdmin = (req, res, next) => {
-    // console.log(req.user.role)
     if (req.user.role !== 'admin') {
         res.status(401).send('You are not an admin!');
     }

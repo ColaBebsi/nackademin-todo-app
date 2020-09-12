@@ -1,0 +1,52 @@
+### LOGIN
+POST http://localhost:3000/login 
+Content-Type: application/json
+Authorization: Bearar eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1tQG1tLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTU5OTQ5ODA3N30._90WaXhV5rsWyKjfGE4_Rb8L_KcXt3VLUWjU1LN2LuE
+{
+    "email": "mm@mm.com",
+    "password": "mm"
+}
+
+### GET TODO ITEMS
+GET http://localhost:3000/todoitems
+Content-Type: application/json
+Authorization: Bearar eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1tQG1tLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTU5OTQ5ODA3N30._90WaXhV5rsWyKjfGE4_Rb8L_KcXt3VLUWjU1LN2LuE
+
+### CREATE TODO LIST 
+POST http://localhost:3000/todolists/5f56675c71e58528d0279bec
+Content-Type: application/json
+Authorization: Bearar eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1tQG1tLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTU5OTQ5ODA3N30._90WaXhV5rsWyKjfGE4_Rb8L_KcXt3VLUWjU1LN2LuE
+
+{
+    "title": "TodoList 1"
+}
+
+### CREATE TODO 
+POST http://localhost:3000/todoitems
+Content-Type: application/json
+
+{
+    "title": "Make breakfast 🍳🥓",
+    "content": "Drink 🧃"
+}
+
+### GET TODO
+GET http://localhost:3000/todoitems/IFCjisX5FIqFWXe7
+
+### GET ALL TODOS
+GET http://localhost:3000/todoitems/
+
+### UPDATE TODO
+PATCH http://localhost:3000/todoitems/IFCjisX5FIqFWXe7
+Content-Type: application/json
+
+{
+    "title": "Make breakfast 🍳🥓 Updated",
+    "content": "Drink 🧃 Updated"
+}
+
+### DELETE TODO 
+DELETE http://localhost:3000/todoitems/IZXlqXmLc8jZDZmz
+
+### DELETE ALL TODOS 
+DELETE http://localhost:3000/todoitems/
