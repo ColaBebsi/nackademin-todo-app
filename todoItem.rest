@@ -1,0 +1,33 @@
+##################################### TODO ITEM API ########################################
+
+### CREATE TODO 
+POST http://localhost:3000/todoitems
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MDAwMzAxNTJ9.CTleaG18CH_dSd2-6PuBJCoIQfL-RroznR-sKuD4HSo
+
+{
+    "title": "Make breakfast 🍳🥓",
+    "content": "Drink 🧃"
+}
+
+### GET TODO
+GET http://localhost:3000/todoitems/IFCjisX5FIqFWXe7
+
+### GET ALL TODOS
+GET http://localhost:3000/todoitems/
+
+### UPDATE TODO
+PATCH http://localhost:3000/todoitems/IFCjisX5FIqFWXe7
+Content-Type: application/json
+
+{
+    "title": "Make breakfast 🍳🥓 Updated",
+    "content": "Drink 🧃 Updated"
+}
+
+### DELETE TODO 
+DELETE http://localhost:3000/todoitems/IZXlqXmLc8jZDZmz
+
+### DELETE ALL TODOS 
+DELETE http://localhost:3000/todoitems/
+

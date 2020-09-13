@@ -17,6 +17,7 @@ function authenticateToken(req, res, next) {
 const isAdmin = (req, res, next) => {
     if (req.user.role !== 'admin') {
         res.status(401).send('You are not an admin!');
+        console.log(req.user.role);
     }
     next();
 }

@@ -1,48 +1,47 @@
-const mongoose = require('mongoose');
-const { isEmail } = require('validator');
+const datastore = require('../config/nedb').users;
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const userSchema = new mongoose.Schema({
-    email: {
-        type: String,
-        required: true,
-        unique: true,
-        validate: isEmail,
-    },
-    password: {
-        type: String,
-        required: true,
-    },
-    role: {
-        type: String, 
-        required: true,
-        default: 'user',
-        enum: ['admin', 'user']
-    }
-});
-
-// Generate salt and hash password before user is saved to db
-userSchema.pre('save', async function(next) {
-    const salt = await bcrypt.genSalt();
-    this.password = await bcrypt.hash(this.password, salt);
-    next();
-});
-
-userSchema.statics.login = async function (email, password) {
-    const user = await this.findOne({ email });
-
-    if (user) {
-        const authUser = await bcrypt.compare(password, user.password);
-
-        if (authUser) {
-            return user;
-        }
-
-        throw Error('Incorrect password');
-    }
-
-    throw Error('Incorrect email');
+const generateAccessToken = (email, role) => {
+    return jwt.sign({ email, role }, process.env.JWT_SECRET);
 }
 
-module.exports = mongoose.model('user', userSchema);
+module.exports.checkUser = async (email, password) => {
+        const user = await datastore.findOne({ email });
+        generateAccessToken(user.email, user.role);
+        
+        return await bcrypt.compare(password, user.password);
+    }
+    
+module.exports.create = async (user) => {
+    try {
+        // Salt and hash password
+        const salt = await bcrypt.genSalt();
+        const hash = await bcrypt.hash(user.password, salt);
+        
+        // Generate access token
+        const accessToken = generateAccessToken(user.email, user.role);
+        
+        const createUser = {
+            email: user.email,
+            password: hash,
+            role: user.role,
+            accessToken: accessToken
+        };
+        
+        return await datastore.insert(createUser);
+    } catch (error) {
+        
+        return error;        
+    }
+}
+
+
+module.exports.read = async (id) => {
+    return await datastore.findOne({ _id: id });
+}
+
+module.exports.delete = async (id) => {
+    return await datastore.remove({ _id: id }); 
+}
+        

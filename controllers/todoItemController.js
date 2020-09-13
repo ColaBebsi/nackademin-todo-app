@@ -2,10 +2,10 @@ const TodoItem = require('../models/TodoItem');
 
 module.exports = {
     createTodo: async (req, res) => {
-        const { title, content } = req.body;
+        const { title, content, done = false } = req.body;
 
         try {
-            const todoItem = await TodoItem.create({ title, content });
+            const todoItem = await TodoItem.create({ title, content, done });
             res.status(201).json({ todoItem });
         } catch (error) {
             res.status(400).json(error.message);
@@ -35,7 +35,7 @@ module.exports = {
 
         try {
             const todoItem = await TodoItem.update(id, { title, content });
-            res.status(200).json({ todoItem }); // 
+            res.status(200).json({ todoItem }); 
         } catch (error) {
             res.status(400).json(error.message);
         }

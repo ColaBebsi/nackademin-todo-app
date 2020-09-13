@@ -1,0 +1,32 @@
+##################################### USER API ########################################
+
+### CREATE USER 
+POST http://localhost:3000/users/signup
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MDAwMzAxNTJ9.CTleaG18CH_dSd2-6PuBJCoIQfL-RroznR-sKuD4HSo
+
+{
+    "email": "test@test.com",
+    "password": "test123",
+    "role": "test"
+}
+
+### LOGIN USER
+POST http://localhost:3000/users/login
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MDAwMzAxNTJ9.CTleaG18CH_dSd2-6PuBJCoIQfL-RroznR-sKuD4HSo
+
+{   
+    "email": "admin@admin.com",
+    "password": "admin123"
+}
+
+### GET USER
+GET http://localhost:3000/users/WfoWlOWrKbU9tSvi
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MDAwMzAxNTJ9.CTleaG18CH_dSd2-6PuBJCoIQfL-RroznR-sKuD4HSo
+
+### DELETE USER 
+DELETE http://localhost:3000/users/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidXNlciIsImlhdCI6MTYwMDAzMDE2NX0.8zGOA3i3AF1NtuKf1TCZ4-9jxiYev83jVXD1P0uEk14
+
+

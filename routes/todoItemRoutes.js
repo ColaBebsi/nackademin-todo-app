@@ -4,7 +4,7 @@ const { authenticateToken, isAdmin } = require('../middlewares/authMiddelware');
 
 router.post('/',  todoItemController.createTodo);
 router.get('/:id',  todoItemController.readTodo);
-router.get('/',  todoItemController.readAllTodos);
+router.get('/', isAdmin, todoItemController.readAllTodos);
 router.patch('/:id',  todoItemController.updateTodo);
 router.delete('/:id',  todoItemController.deleteTodo);
 router.delete('/',  todoItemController.deleteAllTodos);
