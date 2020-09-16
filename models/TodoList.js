@@ -7,7 +7,7 @@ const create = async (title, userId) => {
     return await datastore.insert({ title, userId });
 }
 
-const readAll = => {
+const readAll = () => {
 
 }
 
