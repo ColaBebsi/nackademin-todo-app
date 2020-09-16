@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const todoItemController = require('../controllers/todoItem');
+const todoItemController = require('../controllers/nedb/todoItem');
 const { authenticateToken, isAdmin } = require('../middlewares/auth');
 
 router.post('/:todoListId',  todoItemController.createTodo);

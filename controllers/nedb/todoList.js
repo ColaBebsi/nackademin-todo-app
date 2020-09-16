@@ -1,4 +1,4 @@
-const TodoList = require('../models/TodoList');
+const TodoList = require('../models/nedb/TodoList');
 
 const createTodoList = async (req, res) => {
     const title = req.body.title;

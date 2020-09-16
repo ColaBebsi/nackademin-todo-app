@@ -1,4 +1,4 @@
-const TodoItem = require('../models/TodoItem');
+const TodoItem = require('../models/nedb/TodoItem');
 
 module.exports = {
     createTodo: async (req, res) => {

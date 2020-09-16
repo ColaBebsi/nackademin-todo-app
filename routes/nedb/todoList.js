@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const todoListController = require('../controllers/todoList');
+const todoListController = require('../controllers/nedb/todoList');
 
 router.post('/:userId', todoListController.createTodoList);
 

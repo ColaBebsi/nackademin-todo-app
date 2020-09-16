@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const userController = require('../controllers/user');
+const userController = require('../controllers/nedb/user');
 const { isAdmin } = require('../middlewares/auth');
 
 router.post('/signup', isAdmin, userController.signup);

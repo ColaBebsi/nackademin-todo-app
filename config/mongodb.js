@@ -1,53 +1,51 @@
-const mongoose = require('mongoose');
-const DB_URI = 'mongodb://localhost/tododb';
+const mongoose = require('mongoose')
+require('dotenv').config()
 
-function connect() {
-    if (process.env.NODE_ENV === 'test') {
-        console.log('Connected to mock MongoDB!');
+let mongoDatabase
 
-        const { MongoMemoryServer } = require('mongodb-memory-server');
-        const mongoServer = new MongoMemoryServer();
+switch(process.env.ENVIRONMENT){
+    case 'development':
+    case 'test':
+        const {MongoMemoryServer} = require('mongodb-memory-server')
+        mongoDatabase = new MongoMemoryServer()
+        break;
+    case 'production':
+    case 'staging':
+        mongoDatabase = {
+            // mongodb+srv://user:password@host/dbname
+            getUri: async () => 
+                `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}?retryWrites=true&w=majority`
+        }
+        break;
+}
+
+async function connect(){
     
-        mongoose.Promise = Promise;
-        mongoServer
-            .getUri()
-            .then((mongoUri) => {
-                const mongooseOpts = {
-                    useNewUrlParser: true,
-                    useCreateIndex: true,
-                    useUnifiedTopology: true
-                };
-                mongoose.connect(mongoUri, mongooseOpts);
+    // let uri = await mongoDatabase.getUri()
+    let uri = 'mongodb://localhost:27017/todo-dev';
 
-                mongoose.connection.on('error', (e) => {
-                    if (e.message.code === 'ETIMEDOUT') {
-                        console.log(e);
-                        mongoose.connect(mongoUri, mongooseOpts);
-                    }
-                    console.log(e);
-                });
+    await mongoose.connect(uri, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useFindAndModify: false,
+        useCreateIndex: true
+    })
+    .then(() => {
+    console.log(`Connected to ${uri}`);
+    })
+    .catch((error) => {
+        console.error(error.reason);
+    });
+}
 
-                mongoose.connection.once('open', () => {
-                    console.log(`MongoDB successfully connected to ${mongoUri}`);
-                });
-            });
-    } else {
-        mongoose.connect(DB_URI, {
-                useNewUrlParser: true, 
-                useUnifiedTopology: true,
-                useCreateIndex: true
-            })
-            .then(() => {
-                console.log('Connected to MongoDB!');
-            })
-            .catch((error) => {
-                console.error(error.reason);
-        });
+async function disconnect(){
+    if(process.env.ENVIRONMENT == 'test' || process.env.ENVIRONMENT == 'development'){
+        await mongoDatabase.stop()
     }
+    await mongoose.disconnect()
 }
 
-const disconnect = () => {
-    return mongoose.disconnect();
-}
 
-module.exports = { connect, disconnect };
+module.exports = {
+    connect, disconnect
+}

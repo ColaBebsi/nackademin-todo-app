@@ -1,11 +1,13 @@
 // Import libraries & database connection
 require('dotenv').config();
-require('./config/nedb');
+// require('./config/nedb');
+const { connect } = require('./config/mongodb');
 const express = require('express');
 const bodyParser = require('body-parser');
+connect();
 
 // Create Express app 
-const PORT = process.env.PORT;
+const port = process.env.PORT;
 const app = express();
 
 // Middlewares
@@ -13,19 +15,33 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 const { authenticateToken } = require('./middlewares/auth');
 
-// Routers
-const todoItemRouter = require('./routes/todoItem');
-const todoListRouter = require('./routes/todoList'); 
-const userRouter = require('./routes/user');
+/************************************ MONGODB ********************************************/
+
+// Routers MongoDB
+// const todoItemRouter = require('./routes/nedb/todoItem');
+// const todoListRouter = require('./routes/nedb/todoList'); 
+// const userRouter = require('./routes/nedb/user');
+
+// Routes MongoDB
+// app.use('/users', authenticateToken, userRouter);
+// app.use('/todoitems',  todoItemRouter);
+// app.use('/todolists', todoListRouter);
+
+/************************************ NEDB ********************************************/
+
+// Routers NeDB
+// const todoItemRouter = require('./routes/nedb/todoItem');
+// const todoListRouter = require('./routes/nedb/todoList'); 
+// const userRouter = require('./routes/nedb/user');
  
-// Routes
-app.use('/users', authenticateToken, userRouter);
-app.use('/todoitems',  todoItemRouter);
-app.use('/todolists', todoListRouter);
+// Routes NeDB
+// app.use('/users', authenticateToken, userRouter);
+// app.use('/todoitems',  todoItemRouter);
+// app.use('/todolists', todoListRouter);
 
 // Start app
-app.listen(PORT, () => {
-    console.log(`Listening on PORT ${PORT}!`);
+app.listen(port, () => {
+    console.log(`Listening on port ${port}`);
 });
 
 module.exports = app;
