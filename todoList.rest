@@ -1,13 +1,12 @@
-##################################### TODO ITEM API ########################################
+##################################### TODO LIST API ########################################
 
-### CREATE TODO 
-POST http://localhost:3000/todoitems/bsAhI433Z00aTsfp
+### CREATE TODO LIST
+POST http://localhost:3000/todolists/U9qvH26m7g1YUDnM
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MDAwMzAxNTJ9.CTleaG18CH_dSd2-6PuBJCoIQfL-RroznR-sKuD4HSo
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MDAwMzAxNTJ9.CTleaG18CH_dSd2-6PuBJCoIQfL-RroznR-sKuD4HSo
 
 {
-    "title": "Make breakfast 2🍳🥓",
-    "content": "Drink 2🧃"
+    "title": "TODO LIST 2 🍳🥓"
 }
 
 ### GET TODO
@@ -15,9 +14,6 @@ GET http://localhost:3000/todoitems/bsAhI433Z00aTsfp
 
 ### GET ALL TODOS
 GET http://localhost:3000/todoitems/
-
-### GET TODO LIST
-GET http://localhost:3000/todoitems/todoList/bsAhI433Z00aTsfp
 
 ### UPDATE TODO
 PATCH http://localhost:3000/todoitems/IFCjisX5FIqFWXe7

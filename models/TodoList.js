@@ -1,14 +1,17 @@
-const mongoose = require('mongoose');
+// Connection to database todoLists.db
+const datastore = require('../config/nedb').todoLists;
 
-const todoListSchema = new mongoose.Schema({
-    title: {
-        type: String,
-        required: true
-    },
-    userId: {
-        type: String,
-        required: true
-    }
-});
+// Insert resource to database 
+// Returns the resource 
+const create = async (title, userId) => {
+    return await datastore.insert({ title, userId });
+}
 
-module.exports = mongoose.model('todoList', todoListSchema);
+const readAll = => {
+
+}
+
+
+module.exports = { 
+    create
+};

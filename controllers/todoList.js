@@ -1,14 +1,14 @@
 const TodoList = require('../models/TodoList');
 
-const create = async (req, res) => {
+const createTodoList = async (req, res) => {
     const title = req.body.title;
     const userId = req.params.userId;
 
     try {
-        const todoList = await TodoList.create({ title, userId });
-        res.status(201).send({ todoList });
+        const todoList = await TodoList.create( title, userId );
+        res.status(201).json(todoList);
     } catch (error) {
-        res.status(400).send(error);        
+        res.status(400).json(error.message);        
     }
 
 }
@@ -30,7 +30,7 @@ async function deleteList(req, res) {
 }
 
 module.exports = { 
-    create, 
+    createTodoList, 
     read,
     readAll,
     update,
