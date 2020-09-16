@@ -1,8 +1,10 @@
+// Import libraries & database connection
 require('dotenv').config();
 require('./config/nedb');
 const express = require('express');
 const bodyParser = require('body-parser');
 
+// Create Express app 
 const PORT = process.env.PORT;
 const app = express();
 
@@ -21,6 +23,7 @@ app.use('/users', authenticateToken, userRouter);
 app.use('/todoitems',  todoItemRouter);
 app.use('/todolists', todoListRouter);
 
+// Start app
 app.listen(PORT, () => {
     console.log(`Listening on PORT ${PORT}!`);
 });
