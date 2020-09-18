@@ -1,9 +1,9 @@
 ##################################### TODO ITEM API ########################################
 
 ### CREATE TODO 
-POST http://localhost:3000/todoitems/bsAhI433Z00aTsfp
+POST http://localhost:3000/todoitems
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MDAwMzAxNTJ9.CTleaG18CH_dSd2-6PuBJCoIQfL-RroznR-sKuD4HSo
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MDAwMzAxNTJ9.CTleaG18CH_dSd2-6PuBJCoIQfL-RroznR-sKuD4HSo
 
 {
     "title": "Make breakfast 2🍳🥓",
@@ -11,7 +11,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iL
 }
 
 ### GET TODO
-GET http://localhost:3000/todoitems/bsAhI433Z00aTsfp
+GET http://localhost:3000/todoitems/5f620b3e62401933e4f202e0
 
 ### GET ALL TODOS
 GET http://localhost:3000/todoitems/

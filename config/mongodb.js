@@ -19,10 +19,10 @@ switch(process.env.ENVIRONMENT){
         break;
 }
 
-async function connect(){
+async function connect() {
     
     // let uri = await mongoDatabase.getUri()
-    let uri = 'mongodb://localhost:27017/todo-dev';
+    let uri = 'mongodb://localhost:27017/nackademin-todo-app-db-dev';
 
     await mongoose.connect(uri, {
         useNewUrlParser: true,
@@ -38,7 +38,7 @@ async function connect(){
     });
 }
 
-async function disconnect(){
+async function disconnect() {
     if(process.env.ENVIRONMENT == 'test' || process.env.ENVIRONMENT == 'development'){
         await mongoDatabase.stop()
     }
