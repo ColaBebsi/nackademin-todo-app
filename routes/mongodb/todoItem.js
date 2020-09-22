@@ -1,19 +1,19 @@
 // Import Router method
-const router = require('express').Router();
-const todoItemController = require('../../controllers/mongodb/todoItem');
+const router = require("express").Router();
+const todoItemController = require("../../controllers/mongodb/todoItem");
 
 // POST
-router.post('/', todoItemController.createTodoItem);
+router.post("/:owner", todoItemController.createTodoItem);
 
 // GET
-router.get('/:id', todoItemController.getTodoItem);
-router.get('/', todoItemController.getAllTodoItems);
+router.get("/:id", todoItemController.getTodoItem);
+router.get("/", todoItemController.getAllTodoItems);
 
 // PATCH
-router.patch('/:id', todoItemController.updateTodoItem);
+router.patch("/:id", todoItemController.updateTodoItem);
 
 // DELETE
-router.delete('/:id', todoItemController.deleteTodoItem);
-router.delete('/', todoItemController.deleteAllTodoItems);
+router.delete("/:id", todoItemController.deleteTodoItem);
+router.delete("/", todoItemController.deleteAllTodoItems);
 
 module.exports = router;

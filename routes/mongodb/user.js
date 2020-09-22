@@ -1,11 +1,16 @@
-const router = require('express').Router();
-const userController = require('../../controllers/mongodb/user');
+// Import library and User controller
+const router = require("express").Router();
+const userController = require("../../controllers/mongodb/user");
 
-router.post('/signup', userController.createUser);
-router.post('/login', userController.loginUser);
+// POST
+router.post("/signup", userController.createUser);
+router.post("/login", userController.loginUser);
 
-router.get('/', userController.getAllUsers);
+// GET
+router.get("/", userController.getAllUsers);
+router.get("/:id", userController.getTodoItems);
 
-router.delete('/', userController.deleteAllUsers);
+// DELETE
+router.delete("/", userController.deleteAllUsers);
 
 module.exports = router;
