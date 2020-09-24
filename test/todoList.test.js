@@ -1,4 +1,4 @@
-/* const chai = require("chai");
+const chai = require("chai");
 const chaiHttp = require("chai-http");
 
 const { connect, disconnect } = require("../config/mongodb");
@@ -97,4 +97,3 @@ describe("Integration test - TodoList", () => {
       });
   });
 });
- */
