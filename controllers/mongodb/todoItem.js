@@ -1,15 +1,26 @@
 const TodoItem = require("../../models/mongodb/TodoItem");
+const TodoList = require("../../models/mongodb/TodoList");
 
 module.exports = {
   createTodoItem: async (req, res) => {
-    const owner = req.params.owner;
-    const { title, content, done } = req.body;
-
     try {
-      const todoItem = await TodoItem.create({ owner, title, content, done });
-      res.status(201).json({ message: "Todo Item Created!", todoItem });
+      // Create todoItem 
+      const todoItem = await TodoItem.create(req.body);
+
+      // Find todoList 
+      const todoList = await TodoList.getList(req.params.listId)
+
+      // Assign todoList as a todoItem list 
+      todoItem.list = todoList;
+      
+      // Add todoItem to the todoList items array 
+      todoList.items.push(todoItem);
+
+      // Save todoList 
+      await todoList.save();
+      res.status(201).json(todoItem);
     } catch (error) {
-      res.status(400).json(error.message);
+      res.status(400).json(error.message)
     }
   },
   getTodoItem: async (req, res) => {
@@ -17,6 +28,7 @@ module.exports = {
 
     try {
       const todoItem = await TodoItem.get(id);
+      console.log(todoItem);
       res.status(200).json({ message: "Todo Item Found", todoItem });
     } catch (error) {
       res.status(400).json(error.message);

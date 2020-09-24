@@ -3,7 +3,7 @@ const router = require("express").Router();
 const todoItemController = require("../../controllers/mongodb/todoItem");
 
 // POST
-router.post("/:owner", todoItemController.createTodoItem);
+router.post("/:listId", todoItemController.createTodoItem);
 
 // GET
 router.get("/:id", todoItemController.getTodoItem);

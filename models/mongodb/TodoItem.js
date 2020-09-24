@@ -1,8 +1,9 @@
 // Import library
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
 // Create schema
-const TodoItemSchema = new mongoose.Schema(
+const TodoItemSchema = new Schema(
   {
     title: {
       type: String,
@@ -16,10 +17,10 @@ const TodoItemSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    owner: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-    },
+    list: {
+      type: Schema.Types.ObjectId,
+      ref: "TodoList"
+    }
   },
   { timestamps: true, versionKey: false }
 );
@@ -34,15 +35,16 @@ module.exports = {
   // Insert resource to database
   // Returns the resource
   create: async (fields) => {
-    // const { title, content, done, owner } = fields;
     return (await TodoItem.create(fields))._doc; // Executes the query and return the document instead of DocumentQuery
   },
 
   // Find resource with the corresponding ID
   // Returns the resource
   get: async (id) => {
-    return (await TodoItem.findById(id).exec())._doc; // Executes the query and return the document instead of DocumentQuery
+    return (await TodoItem.find(id).exec())._doc; // Executes the query and return the document instead of DocumentQuery
   },
+  
+  
 
   // Find all resources
   // Return all resources

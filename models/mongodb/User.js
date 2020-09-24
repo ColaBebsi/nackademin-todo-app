@@ -2,9 +2,10 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const Schema = mongoose.Schema;
 
 // Create schema
-const UserSchema = new mongoose.Schema(
+const UserSchema = new Schema(
   {
     email: {
       type: String,
@@ -20,15 +21,9 @@ const UserSchema = new mongoose.Schema(
       default: "user",
       enum: ["admin", "user"],
     },
-    todoItems: [
+    lists: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "TodoItem",
-      },
-    ],
-    todoLists: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: "TodoList",
       },
     ],
@@ -59,16 +54,18 @@ module.exports.signup = async (user) => {
 module.exports.login = async (email, password) => {
   // Find user email
   const user = await User.findOne({ email });
-
   // If user exists
   if (user) {
     // Compare the entered password and the hashed password
     const authenticatedUser = await bcrypt.compare(password, user.password);
-
+    
     // If password is correct
     if (authenticatedUser) {
-      // Return the user
-      return user;
+      
+      // Create token containing payload user id/role
+      // Return token 
+      const token = jwt.sign({ _id: user._id, role: user.role }, process.env.JWT_SECRET);
+      return token;
     }
     // If password is NOT correct, throw error
     throw Error("Incorrect password");
@@ -77,14 +74,14 @@ module.exports.login = async (email, password) => {
   throw Error("Incorrect email");
 };
 
+module.exports.get = async (id) => {
+  return (await User.findById(id).exec())._doc;
+};
+
 // Find all resources
 // Return all resources
 module.exports.getAll = async () => {
   return await User.find({});
-};
-
-module.exports.getItems = async (id) => {
-  return await User.find({ id }).populate("TodoItem");
 };
 
 // Delete all resources

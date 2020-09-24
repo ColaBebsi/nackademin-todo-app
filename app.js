@@ -4,7 +4,6 @@ require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 
-
 // Create Express app
 const app = express();
 
@@ -17,13 +16,13 @@ const { authenticateToken } = require("./middlewares/auth");
 
 // Routers MongoDB
 const todoItemRouter = require("./routes/mongodb/todoItem");
-// const todoListRouter = require('./routes/nedb/todoList');
+const todoListRouter = require("./routes/mongodb/todoList");
 const userRouter = require("./routes/mongodb/user");
 
 // Routes MongoDB
 app.use("/users", userRouter);
-app.use("/todoitems", todoItemRouter);
-// app.use('/todolists', todoListRouter);
+app.use("/todoitems", authenticateToken, todoItemRouter);
+app.use("/todolists", authenticateToken, todoListRouter);
 
 /************************************ NEDB ********************************************/
 
